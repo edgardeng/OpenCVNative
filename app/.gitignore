@@ -1,0 +1,8 @@
+/build
+/.idea
+/.externalNativeBuild
+/src/main/jni/opencv/*
+/src/main/cpp/HeisAI/tensorflow/*
+
+
+
