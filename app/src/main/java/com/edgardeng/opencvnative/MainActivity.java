@@ -1,9 +1,13 @@
 package com.edgardeng.opencvnative;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,23 +37,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showBtn.setOnClickListener(this);
         processBtn = (Button) findViewById(R.id.process);
         processBtn.setOnClickListener(this);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pic_test);
+        imageView.setImageBitmap(bitmap);
+
+        String info = this.sayHello();
+        Log.e("MainActivity",info);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("MainActivity",getDevice());
+            }
+        },2000);
+
+
     }
+
 
     @Override
     public void onClick(View v) {
         if (v == showBtn) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pic_test);
-            imageView.setImageBitmap(bitmap);
+            startActivity(new Intent(this,DeviceInfoActivity.class));
         } else {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pic_test);
-            getImageEdge(bitmap);
+//            getImageEdge(bitmap);
             imageView.setImageBitmap(bitmap);
         }
     }
 
-    //获得Canny边缘
-    // native void getEdge(Object bitmap);
-    public static native void getImageEdge(Object obj);
+
+// public static native void getImageEdge(Object obj); //获得Canny边缘
     public static native String sayHello();
+    public static native String getDevice();
+
 
 }
